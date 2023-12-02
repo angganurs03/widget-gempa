@@ -1,0 +1,42 @@
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<center>Data ini di ambil dari <a href="https://www.bmkg.go.id"><img src="https://www.bmkg.go.id/asset/img/logo/logo-bmkg.svg" width="25" height="25"></a></center>
+    <div id="data"></div>
+    <script>
+        // fungsi untuk mengambil data dari url
+        function getData(url) {
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    // menampilkan data dengan format yang diinginkan
+                    var output = "";
+                    output +="<marquee>";
+                    output += " Tanggal:" +" <b>" + data.Infogempa.gempa.Tanggal +"</b> "+"○";
+                    output += "Jam: " +" <b>" + data.Infogempa.gempa.Jam +" </b>" + "○";
+                    output += "Lintang: "+" <b>"  + data.Infogempa.gempa.Lintang+" </b>"  + "○";
+                    output += "Bujur: "+" <b>"  + data.Infogempa.gempa.Bujur+" </b>"  + "○";
+                    output += "Magnitudo: " +" <b>" + data.Infogempa.gempa.Magnitude +" </b>" + "○";
+                    output += "Kedalaman: "+" <b>"  + data.Infogempa.gempa.Kedalaman+" </b>"  + "○";
+                    output += "Wilayah: " +" <b>" + data.Infogempa.gempa.Wilayah +" </b>" + "○";
+                    output += "Potensi: "+" <b>"  + data.Infogempa.gempa.Potensi +" </b>" + "○";
+                    output +="</marquee>";
+                    // menampilkan output di div dengan id="data"
+                    $("#data").html(output);
+                },
+                error: function(error) {
+                    // menampilkan pesan error jika ada
+                    alert("Terjadi kesalahan: " + error.statusText);
+                }
+            });
+        }
+
+        // memanggil fungsi getData dengan url yang diberikan
+        getData("https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json");
+    </script>
+</body>
+</html>
